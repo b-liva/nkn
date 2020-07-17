@@ -9,7 +9,7 @@ class UserManager(BaseUserManager):
         """Creates and saved a new user"""
         if not email:
             raise ValueError('users must have emails.')
-        user = self.model(email=self.normalize_email(email), *kwargs)
+        user = self.model(email=self.normalize_email(email), **kwargs)
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -19,7 +19,7 @@ class UserManager(BaseUserManager):
         user = self.create_user(email, password)
         user.is_superuser = True
         user.is_staff = True
-
+        user.save()
         return user
 
 
